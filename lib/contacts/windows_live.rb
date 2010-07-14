@@ -46,7 +46,10 @@ module Contacts
     #
     configuration_attribute :force_origin
 
+    attr_accessor :wll
+
     def initialize(options={})
+      self.wll = WindowsLiveLogin.new
       @token_expires_at = nil
       @location_id = nil
       @delegation_token = nil
@@ -67,20 +70,12 @@ module Contacts
     end
 
     def authentication_url(target, options={})
-      if force_origin
-        context = target
-        target = force_origin + URI.parse(target).path
-      end
-
-      url = "https://consent.live.com/Delegation.aspx"
-      query = {
-        'ps' => 'Contacts.Invite',
-        'ru' => target,
-        'pl' => privacy_policy_url,
-        'app' => app_verifier,
-      }
-      query['appctx'] = context if context
-      "#{url}?#{params_to_query(query)}"
+      wll.appid = self.application_id
+      wll.secret = self.secret_key
+      wll.securityalgorithm = 'wsignin1.0'
+      wll.policyurl = self.privacy_policy_url
+      wll.returnurl = target
+      wll.getConsentUrl('Contacts.Invite')
     end
 
     def forced_redirect_url(params)
@@ -107,9 +102,14 @@ module Contacts
     end
 
     def contacts(options={})
-      return nil if @delegation_token.nil? || @token_expires_at < Time.now
+      @wll.secret = self.secret_key
+      token = @wll.processConsentToken(options['ConsentToken'])
+      location_id = token.locationid
+      delegation_token = token.delegationtoken
+      token_expires_at = token.expiry
+      return nil if delegation_token.nil? || token_expires_at < Time.now
       # TODO: Handle expired token.
-      xml = request_contacts
+      xml = request_contacts(location_id, delegation_token)
       parse_xml(xml)
     end
 
@@ -164,11 +164,11 @@ module Contacts
       params
     end
 
-    def request_contacts
+    def request_contacts(location_id, delegation_token)
       http = Net::HTTP.new('livecontacts.services.live.com', 443)
       http.use_ssl = true
-      url = "/users/@L@#{@location_id}/rest/invitationsbyemail"
-      authorization = "DelegatedToken dt=\"#{@delegation_token}\""
+      url = "/users/@L@#{location_id}/rest/invitationsbyemail"
+      authorization = "DelegatedToken dt=\"#{delegation_token}\""
       http.get(url, {"Authorization" => authorization}).body
     end
 
@@ -181,7 +181,7 @@ module Contacts
           names << element.inner_text.strip
         element = contact.at('Profiles/Personal/LastName') and
           names << element.inner_text.strip
-        Contact.new(names.join(' '), email)
+        Contact.new(email, names.join(' '))
       end
     end
   end

@@ -82,4 +82,5 @@ module Contacts
   autoload :Google, 'contacts/google'
   autoload :Yahoo, 'contacts/yahoo'
   autoload :WindowsLive, 'contacts/windows_live'
+  autoload :WindowsLiveLogin, 'contacts/windowslivelogin'
 end
