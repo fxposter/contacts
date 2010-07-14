@@ -181,7 +181,7 @@ module Contacts
           names << element.inner_text.strip
         element = contact.at('Profiles/Personal/LastName') and
           names << element.inner_text.strip
-        Contact.new(email, names.join(' '))
+        Contact.new(names.join(' '), email)
       end
     end
   end
