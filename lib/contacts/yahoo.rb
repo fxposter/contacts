@@ -55,6 +55,7 @@ module Contacts
     end
 
     def parse_contacts(text)
+      begin
       result = JSON.parse(text)
       if result['contacts']
       result['contacts']['contact'].map do |contact_object|
@@ -74,6 +75,9 @@ module Contacts
       end.compact
       else
         []
+      end
+      rescue
+        return nil
       end
     end
   end
