@@ -27,8 +27,12 @@ module Contacts
       guid = @access_token.params['xoauth_yahoo_guid']
       uri = URI.parse("http://social.yahooapis.com/v1/user/#{guid}/contacts")
       uri.query = params_to_query(yahoo_params)
-      response = @access_token.get(uri.to_s)
-      parse_contacts(response.body)
+      begin
+        response = @access_token.get(uri.to_s)
+        parse_contacts(response.body)
+      rescue
+        return nil
+      end
     end
 
     def serializable_data
