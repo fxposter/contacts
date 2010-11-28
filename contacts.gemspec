@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version = Contacts::VERSION::STRING
   s.summary = "Fetch users' contact lists without asking them to provide their passwords, as painlessly as possible."
   s.require_path = 'lib'
-  s.files = Dir.glob('{spec,lib,rails}/**/*') + %w(Gemfile Gemfile.lock LICENSE Rakefile README.rdoc simple_model_translations.gemspec .rspec)
+  s.files = Dir.glob('{spec,lib,rails}/**/*') + %w(Gemfile Gemfile.lock README.markdown contacts.gemspec)
   s.test_files = Dir.glob('spec/**/*')
   
   s.required_rubygems_version = '>= 1.3.6'
