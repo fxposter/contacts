@@ -1,8 +1,6 @@
 require 'rubygems'
-gem 'rspec', '~> 1.1.3'
-require 'spec'
-gem 'mocha', '~> 0.9.0'
-require 'mocha'
+require 'bundler'
+Bundler.require(:default, :development)
 
 require 'cgi'
 require 'fake_web'

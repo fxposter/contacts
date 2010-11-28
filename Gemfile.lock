@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    lperichon-contacts (0.2.5)
+      nokogiri
+      oauth
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    mocha (0.9.10)
+      rake
+    nokogiri (1.4.4)
+    oauth (0.4.4)
+    rake (0.8.7)
+    rspec (1.1.12)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  lperichon-contacts!
+  mocha (~> 0.9.0)
+  nokogiri
+  oauth
+  rspec (~> 1.1.3)
