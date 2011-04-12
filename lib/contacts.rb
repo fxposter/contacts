@@ -85,8 +85,5 @@ module Contacts
   autoload :WindowsLiveLogin, 'contacts/windowslivelogin'
 end
 
-if defined?(Rails::Application)
-  config = YAML.load_file(Rails.root.join('config', 'contacts.yml'))
-  Contacts.configure(config[Rails.env])
-end
+require 'contacts/railtie' if defined?(Rails)
 
