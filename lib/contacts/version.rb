@@ -4,6 +4,6 @@ module Contacts
     MINOR = 2
     TINY  = 5
 
-    STRING = [MAJOR, MINOR, TINY].join('.')
+    STRING = [MAJOR, MINOR, TINY].join('.').freeze
   end
 end
