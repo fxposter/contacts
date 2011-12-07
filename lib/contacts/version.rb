@@ -1,9 +1,3 @@
 module Contacts
-  module VERSION #:nodoc:
-    MAJOR = 0
-    MINOR = 2
-    TINY  = 5
-
-    STRING = [MAJOR, MINOR, TINY].join('.').freeze
-  end
+  VERSION = '0.2.5'
 end
