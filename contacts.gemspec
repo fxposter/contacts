@@ -7,7 +7,7 @@ require 'contacts/version'
 Gem::Specification.new do |s|
   s.name = 'contacts'
   s.authors = ['Mislav Marohnić', 'George Ogata', 'Luis Perichon', 'Pavel Forkert']
-  s.version = Contacts::VERSION::STRING
+  s.version = Contacts::VERSION
   s.summary = "Fetch users' contact lists without asking them to provide their passwords, as painlessly as possible."
   s.require_path = 'lib'
   s.files = Dir.glob('{spec,lib,rails}/**/*') + %w(Gemfile Gemfile.lock README.markdown contacts.gemspec)
