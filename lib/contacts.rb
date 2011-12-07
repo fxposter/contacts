@@ -3,7 +3,7 @@ require 'contacts/version'
 
 module Contacts
 
-  Identifier = 'Ruby Contacts v' + VERSION::STRING
+  Identifier = 'Ruby Contacts v' + VERSION
 
   def self.configure(configuration)
     configuration.each do |key, value|

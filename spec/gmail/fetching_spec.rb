@@ -22,7 +22,7 @@ describe Contacts::Google do
         :verify => lambda { |req|
           req['Authorization'].should == %(AuthSub token="dummytoken")
           req['Accept-Encoding'].should == 'gzip'
-          req['User-Agent'].should == "Ruby Contacts v#{Contacts::VERSION::STRING} (gzip)"
+          req['User-Agent'].should == "Ruby Contacts v#{Contacts::VERSION} (gzip)"
         }
       )
         
